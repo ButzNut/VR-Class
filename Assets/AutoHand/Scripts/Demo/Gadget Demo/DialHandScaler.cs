@@ -13,6 +13,8 @@ namespace Autohand.Demo{
         float[] fingersStartScale;
         Vector3 lastHandScale;
 
+        public float penSize;
+        
         new protected void Start() {
             base.Start();
             startScale = hand.transform.localScale;
@@ -25,13 +27,13 @@ namespace Autohand.Demo{
         }
 
         void Update(){ 
-            var value = GetValue();
+            var penSize = GetValue();
             var scaleDiff = hand.transform.localScale.magnitude/startScale.magnitude;
 
             if(value >= 0)
-                hand.transform.localScale = Vector3.Lerp(startScale, maxScale, value);
+                hand.transform.localScale = Vector3.Lerp(startScale, maxScale, penSize);
             else if(value < 0)
-                hand.transform.localScale = Vector3.Lerp(startScale, minScale, -value);
+                hand.transform.localScale = Vector3.Lerp(startScale, minScale, -penSize);
 
             //The hands reach distance, and the fingers tip radius all need to be set based on the scale
             hand.reachDistance = startReach*scaleDiff;
